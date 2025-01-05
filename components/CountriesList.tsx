@@ -24,20 +24,27 @@ const CountriesList = () => {
           <button
             key={letter}
             onClick={() => setSelectedLetter(letter)}
-            className="px-2 py-1 mx-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className={`px-2 py-1 mx-1 rounded ${
+              selectedLetter === letter
+                ? "bg-blue-900 text-white"
+                : "bg-blue-500 text-white hover:bg-blue-600"
+            }`}
           >
             {letter}
           </button>
         ))}
         <button
           onClick={() => setSelectedLetter(null)}
-          className="px-2 py-1 mx-1 bg-gray-500 text-white rounded hover:bg-gray-600"
+          className={`px-2 py-1 mx-1 rounded ${
+            selectedLetter === null
+              ? "bg-blue-900 text-white"
+              : "bg-blue-500 text-white hover:bg-blue-600"
+          }`}
         >
           All
         </button>
       </div>
 
-      {/* Countries List */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {filteredCountries.map((country: any) => (
           <div key={country.code} className="p-4 border rounded shadow">
