@@ -26,4 +26,4 @@ I have used Apollo Client to interact with the GraphQL API.
 
 ## Screenshots:
 
-![alt text](https://github.com/Krischal-Pote/blob/app_visulization/screenshot/data_visulazation.png)
+![Data Visualization Image](/screenshot/data_visulazation.png)
