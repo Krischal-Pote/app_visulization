@@ -1,3 +1,5 @@
+# Documentation
+
 First, install the dependencies
 
 ```bash
@@ -19,4 +21,9 @@ bun dev
 ```
 
 In this poject i have visulizate the data of the https://countries.trevorblades.com/graphql
+
 I have used Apollo Client to interact with the GraphQL API.
+
+## Screenshots:
+
+![alt text](https://github.com/Krischal-Pote/app_visulization/screenshot/data_visulazation.png)
