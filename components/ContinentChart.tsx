@@ -27,7 +27,7 @@ ChartJS.register(
 const ContinentChart = () => {
   const { data, loading, error } = useQuery(GET_COUNTRIES);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  console.log("contients", data);
+  // console.log("contients", data);
 
   const [selectedContinent, setSelectedContinent] = useState<string | null>(
     null
