@@ -12,6 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { Modal } from "antd";
 
 ChartJS.register(
   CategoryScale,
@@ -25,11 +26,16 @@ ChartJS.register(
 
 const ContinentChart = () => {
   const { data, loading, error } = useQuery(GET_COUNTRIES);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   console.log("contients", data);
 
   const [selectedContinent, setSelectedContinent] = useState<string | null>(
     null
   );
+  const [selectedContinentPie, setSelectedContinentPie] = useState<{
+    name: string;
+    countries: string[];
+  } | null>(null);
   const [barColor, setBarColor] = useState("rgba(75, 192, 192, 0.6)");
   const [pieColors, setPieColors] = useState([
     "rgba(255, 99, 132, 0.6)",
@@ -105,10 +111,27 @@ const ContinentChart = () => {
             const countryNames = countriesInContinent
               .map((c: any) => c.name)
               .join(", ");
-            return `${countriesInContinent.length} countries  (${countryNames})`;
+            return `Countries per Continent : ${countriesInContinent.length}. Click to see details.`;
           },
         },
       },
+    },
+    onClick: (e: any, elements: any[]) => {
+      if (elements.length > 0) {
+        const chartElement = elements[0];
+        const index = chartElement.index;
+        const continentName = (pieChartData.labels as string[])[index];
+        const countriesInContinent = data.countries.filter(
+          (c: any) => c.continent.name === continentName
+        );
+        const countryNames = countriesInContinent.map((c: any) => c.name);
+
+        setSelectedContinentPie({
+          name: continentName,
+          countries: countryNames,
+        });
+        setIsModalVisible(true);
+      }
     },
   };
   const handlePieColorChange = (index: number, newColor: string) => {
@@ -174,6 +197,29 @@ const ContinentChart = () => {
           <div className="w-[50%] ">
             <Pie options={pieChartOptions} data={pieChartData} />
           </div>
+          <Modal
+            title={`Details for ${selectedContinentPie?.name}`}
+            open={isModalVisible}
+            onCancel={() => setIsModalVisible(false)}
+            footer={null}
+          >
+            {selectedContinent && (
+              <>
+                <p>
+                  <strong>Number of Countries:</strong>{" "}
+                  {selectedContinentPie?.countries?.length}
+                </p>
+                <p>
+                  <strong>Countries:</strong>
+                </p>
+                <ul style={{ maxHeight: "500px", overflowY: "auto" }}>
+                  {selectedContinentPie?.countries?.map((country, index) => (
+                    <li key={index}>{country}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </Modal>
         </div>
       </div>
     </div>
