@@ -203,7 +203,7 @@ const ContinentChart = () => {
             onCancel={() => setIsModalVisible(false)}
             footer={null}
           >
-            {selectedContinent && (
+            {selectedContinentPie && (
               <>
                 <p>
                   <strong>Number of Countries:</strong>{" "}
